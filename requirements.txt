@@ -1,0 +1,8 @@
+PyAudio
+pyttsx3
+SpeechRecognition
+vosk
+pyowm
+google
+wikipedia-api
+googletrans
