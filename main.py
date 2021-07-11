@@ -5,7 +5,7 @@ import speech_recognition as sr
 import pyttsx3
 from fuzzywuzzy import fuzz
 import datetime
-
+import random
 # for index,name in enumerate(sr.Microphone.list_microphone_names()): # код для определения индекса нужного микрофона, нужный с самого верха индекс
 #     print("Microphone with name \"{1}\" found for 'Microphone(device_index={0})'".format(index,name))
 # with sr.Microphone(device_index=1) as source: # указывать индекс микрофона
@@ -72,7 +72,7 @@ def execute_cmd(cmd):
     
     # elif cmd == 'radio':
     #     # воспроизвести радио
-    #     os.system("D:\\Jarvis\\res\\radio_record.m3u")
+    #     os.system("") # путь до музыки
     
     elif cmd == 'stupid1':
         # рассказать анекдот
@@ -88,9 +88,8 @@ with m as source:
 
 speak_engine=pyttsx3.init()
 voices=speak_engine.getProperty('voices')# обязательно должны стоять голоса для синтеза речи
-speak_engine.setProperty('voice',voices[4].id)
+speak_engine.setProperty('voice',voices[0].id)
 speak('Здарова пидрила')
 speak('Али на связи')
 stop_listening=r.listen_in_background(m, callback)
-while True:
-    time.sleep(0.1)
+while True: time.sleep(0.1)
