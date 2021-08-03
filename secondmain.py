@@ -6,8 +6,9 @@ import pyttsx3
 from fuzzywuzzy import fuzz
 import datetime
 import random
-for index,name in enumerate(sr.Microphone.list_microphone_names()): # код для определения индекса нужного микрофона, нужный с самого верха индекс
-    print("Microphone with name \"{1}\" found for 'Microphone(device_index={0})'".format(index,name))
+from tkinter import *
+# for index,name in enumerate(sr.Microphone.list_microphone_names()): # код для определения индекса нужного микрофона, нужный с самого верха индекс
+#     print("Microphone with name \"{1}\" found for 'Microphone(device_index={0})'".format(index,name))
 # with sr.Microphone(device_index=1) as source: # указывать индекс микрофона
 #     print('Али слушает')
 #     audio=r.listen(source)
@@ -15,12 +16,12 @@ for index,name in enumerate(sr.Microphone.list_microphone_names()): # код д�
 # query=r.recognize_google(audio,language='ru-RU')
 # print('Брат ты сказал: '+query.lower())
 opts={
-    "alias": ('али','братуха','братан','брат','алле'),
-    # "tbr": ('скажи','расскажи','покажи','сколько','произнеси'),
+    "alias": ('али','братуха'),
+    "tbr": ('скажи','расскажи','покажи','сколько','произнеси'),
     "cmds": {
-        "radio": ('включи музыку','воспроизведи радио','включи радио','включи моргенштерна','влкючи моргена','включи классный музон'),
-        "stupid1": ('расскажи анекдот','рассмеши меня','ты знаешь анекдоты'),
-        "tips": ('как убить врага','как замочить его'),
+        "ctime": ('текущее время','сейчас времени','который час'),
+        "radio": ('включи музыку','воспроизведи радио','включи радио'),
+        "stupid1": ('расскажи анекдот','рассмеши меня','ты знаешь анекдоты')
     }
 }
 def speak(what):
@@ -41,8 +42,8 @@ def callback(recognizer,audio):
             for x in opts['alias']:
                 cmd = cmd.replace(x, "").strip()
             
-            # for x in opts['tbr']:
-            #     cmd = cmd.replace(x, "").strip()
+            for x in opts['tbr']:
+                cmd = cmd.replace(x, "").strip()
             
             # распознаем и выполняем команду
             cmd = recognize_cmd(cmd)
@@ -65,17 +66,15 @@ def recognize_cmd(cmd):
     return RC
 
 def execute_cmd(cmd):
-    # if cmd == 'ctime':
-    #     # сказать текущее время
-    #     now = datetime.datetime.now()
-    #     speak("Сейчас " + str(now.hour) + ":" + str(now.minute))
+    if cmd == 'ctime':
+        # сказать текущее время
+        now = datetime.datetime.now()
+        speak("Сейчас " + str(now.hour) + ":" + str(now.minute))
     
     # elif cmd == 'radio':
     #     # воспроизвести радио
     #     os.system("") # путь до музыки
-    if cmd=='tips':
-        speak('Мочи его ногами')
-
+    
     elif cmd == 'stupid1':
         # рассказать анекдот
         speak("Мой разработчик не научил меня анекдотам ... Ха ха ха")
@@ -98,7 +97,10 @@ def record_volume():
         callback(r,audio)
     except:
         print('Error')
-
+root=Tk()
+root.title('Голосовой ассистент Али')
+root.geometry('400x300')
+root.mainloop
 speak_engine=pyttsx3.init()
 speak('Здарова братуха, как житуха')
 speak('Али на связи')
