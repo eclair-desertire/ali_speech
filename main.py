@@ -70,8 +70,10 @@ def callback(recognizer,audio):
             execute_cmd(cmd['cmd'])
     except sr.UnknownValueError:
         print("[log] Голос не распознан!")
+        speak('Ничего не понял. Повтори')
     except sr.RequestError as e:
         print("[log] Неизвестная ошибка, проверьте интернет!")
+        speak('Братан инет пропал')
 
 def recognize_cmd(cmd):
     RC = {'cmd': '', 'percent': 0}
