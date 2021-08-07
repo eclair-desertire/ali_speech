@@ -8,12 +8,6 @@ import datetime
 import random
 for index,name in enumerate(sr.Microphone.list_microphone_names()): # код для определения индекса нужного микрофона, нужный с самого верха индекс
     print("Microphone with name \"{1}\" found for 'Microphone(device_index={0})'".format(index,name))
-# with sr.Microphone(device_index=1) as source: # указывать индекс микрофона
-#     print('Али слушает')
-#     audio=r.listen(source)
-
-# query=r.recognize_google(audio,language='ru-RU')
-# print('Брат ты сказал: '+query.lower())
 music={}
 vars_for_tips={1:'Мочи его ногами',
     2:'кидай флеху',
@@ -34,6 +28,23 @@ vars_for_tips={1:'Мочи его ногами',
     }
 anekdoty={
     1:'Вышел заяц на крыльцо, почесать свое яйцо. Найди работу хватит дома сидеть',
+    2:'В чем схожесть между утопленником, беременной женщиной и сгоревшим тостом? Вовремя не успели вытащить',
+    3:'У Вити была кличка в тюрьме Дартаньян. Потому что сидел один за всех',
+    4:'Как называть маленького мента? Копчик',
+    5:'',
+    6:'',
+    7:'',
+    8:'',
+    9:'',
+    10:'',
+    11:'',
+    12:'',
+    13:'',
+    14:'',
+    15:'',
+}
+philosophy={
+    1:'',
 }
 opts={
     "alias": ('али','братуха','братан','брат','алле'),
@@ -42,6 +53,7 @@ opts={
         "radio": ('включи музыку','воспроизведи радио','включи радио','включи моргенштерна','влкючи моргена','включи классный музон'),
         "stupid1": ('расскажи анекдот','рассмеши меня','ты знаешь анекдоты'),
         "tips": ('как убить врага','как замочить его'),
+        "ques":('в чем жизнь', 'в чем смысл жизни','в чем сила')
     }
 }
 def speak(what):
@@ -62,10 +74,7 @@ def callback(recognizer,audio):
             for x in opts['alias']:
                 cmd = cmd.replace(x, "").strip()
             
-            # for x in opts['tbr']:
-            #     cmd = cmd.replace(x, "").strip()
-            
-            # распознаем и выполняем команду
+
             cmd = recognize_cmd(cmd)
             execute_cmd(cmd['cmd'])
     except sr.UnknownValueError:
@@ -88,10 +97,6 @@ def recognize_cmd(cmd):
     return RC
 
 def execute_cmd(cmd):
-    # if cmd == 'ctime':
-    #     # сказать текущее время
-    #     now = datetime.datetime.now()
-    #     speak("Сейчас " + str(now.hour) + ":" + str(now.minute))
     
     # elif cmd == 'radio':
     #     # воспроизвести радио
@@ -101,9 +106,13 @@ def execute_cmd(cmd):
 
     elif cmd == 'stupid1':
         # рассказать анекдот
-        speak(anekdoty[random.randint(1)])
+        speak(anekdoty[random.randint(1,4)])
+    
+    elif cmd =='ques':
+        speak(philosophy[random.randint(1,4)])
     
     else:
+        speak('Ничего не понял. Повтори')
         print('Команда не распознана, повторите!')
 #Запуск
 def record_volume():
@@ -132,10 +141,10 @@ while True:
 # voices=speak_engine.getProperty('voices')# обязательно должны стоять голоса для синтеза речи
 # speak_engine.setProperty('voice',voices[0].id)
 
-r=sr.Recognizer()
-m=sr.Microphone(device_index=1)
+# r=sr.Recognizer()
+# m=sr.Microphone(device_index=1)
 
-while True:
-  with m as source:
-    audio = r.listen(source)
-  callback(r, audio)
+# while True:
+#   with m as source:
+#     audio = r.listen(source)
+#   callback(r, audio)
